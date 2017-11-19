@@ -1,6 +1,6 @@
 package tp3;
 
-import java.util.*;
+import java.util.concurrent.Semaphore;
 
 /**
  * Bassin object
@@ -13,56 +13,32 @@ public class Bassin {
      * Default constructor
      */
     public Bassin() {
+    	this.sem = new Semaphore(50);
     }
 
     /**
-     * 
+     * Semaphore qui permet de verrouiller le bassin
+     * quand le nombre de client >= capacité du bassin 
      */
-    public static final int NB_PLACES = 50;
-
-    /**
-     * 
-     */
-    private int nbClient;
+    private Semaphore sem;
     
     /**
-     * 
-     * @param client
+     * Accéder au bassin
+     * @param client le clien qui accède dans le bassin
      */
-    public synchronized void gestionBassin(Client client) {
-        if(NB_PLACES < this.nbClient) {
-        	try {
-				client.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-        }
-        
-        this.nbClient++;
-        
-        try {
-			Thread.sleep(10000);
+    public void entrerBassin(Client client) {
+    	try {
+			this.sem.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        
-        this.nbClient--;
     }
     
     /**
-     * Getter
-     * @return
+     * Sortir du bassin
+     * @param client Le client qui sort du bassin 
      */
-    public int getNbClient() {
-    	return this.nbClient;
+    public void quitterBassin(Client client) {
+    	this.sem.release();
     }
-    
-    /**
-     * Setter
-     * @param nbClient
-     */
-    public void setNbClient(int nbClient) {
-    	this.nbClient = nbClient;
-    }
-
 }

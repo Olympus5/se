@@ -21,16 +21,19 @@ public class Comptoir {
     private boolean vendTicket;
     
     /**
-     * 
+     * achat d'un ticket
+     * @param le client qui achète un ticket
      */
-    public synchronized void gestionComptoir(Client client) {
+    public synchronized void acheterTicket(Client client) {
     	if(this.vendTicket) {
     		try {
-				client.wait();
+				wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
     	}
+    	
+    	notify();
     }
     
     /**

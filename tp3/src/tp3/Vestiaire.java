@@ -1,6 +1,6 @@
 package tp3;
 
-import java.util.*;
+import java.util.concurrent.Semaphore;
 
 /**
  * Vestiaire object
@@ -13,56 +13,32 @@ public class Vestiaire {
      * Default constructor
      */
     public Vestiaire() {
+    	this.sem = new Semaphore(20);
     }
-
-    /**
-     * 
-     */
-    public static final int NB_PLACES = 20;
-
-    /**
-     * 
-     */
-    private int nbClient;
     
     /**
-     * 
-     * @param client
+     * Semaphore qui permet de verrouiller le vestiaire
+     * quand le nombre de client >= capacité du vestiaire 
      */
-    public synchronized void gestionVestiaire(Client client) {
-        if(NB_PLACES < this.nbClient){
-        	try {
-				client.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-        }
-        
-        this.nbClient++;
-        
-        //TODO: Délocaliser dans une autre méthode
-        try {
-			Thread.sleep(10000);
+    private Semaphore sem;
+    
+    /**
+     * Acceder au vestiaire
+     * @param client Le client qui accède au vestiaire
+     */
+    public void entrerVestiaire(Client client) {
+    	try {
+			this.sem.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        
-        this.nbClient--;
-    }
-
-    /**
-     * Getter
-     * @return nombre de clients achetant un ticket
-     */
-    public int getNbClient() {
-    	return this.nbClient;
     }
     
     /**
-     * Setter
-     * @param nbClient nombre de clients achetant un ticket
+     * Sortir du vestiaire
+     * @param client Le client qui sort du vestiaire
      */
-    public void setNbClient(int nbClient) {
-    	this.nbClient += nbClient;
+    public void quitterVestiaire(Client client) {
+    	this.sem.release();
     }
 }
