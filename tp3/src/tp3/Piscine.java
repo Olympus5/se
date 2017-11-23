@@ -1,7 +1,5 @@
 package tp3;
 
-import java.util.*;
-
 /**
  * Piscine object
  * @author Erwan IQUEL, Mathieu LE CLEC'H

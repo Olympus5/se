@@ -1,7 +1,5 @@
 package tp3;
 
-import java.util.*;
-
 /**
  * Object client
  * @author Erwan IQUEL, Mathieu LE CLEC'H
@@ -25,7 +23,7 @@ public class Client extends Thread {
 	 * Action d'acheter un ticket
 	 */
 	public void acheterTicket() {
-		this.piscine.getComptoir().acheterTicket(this);
+		this.piscine.getComptoir().acheterTicket();
 		
 		System.out.println("Client " + this.getName() + " dit: j'achète un ticket.");
 	}
@@ -34,7 +32,7 @@ public class Client extends Thread {
 	 * Action d'aller dans et de sortir des vestiaires
 	 */
 	public void allerVestiaire() {
-		this.piscine.getVestiaire().entrerVestiaire(this);
+		this.piscine.getVestiaire().entrerVestiaire();
 		
 		System.out.println("Client " + this.getName() + " dit: je vais dans le vestiaire.");
 		
@@ -44,7 +42,7 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 		
-		this.piscine.getVestiaire().quitterVestiaire(this);
+		this.piscine.getVestiaire().quitterVestiaire();
 		
 		System.out.println("Client " + this.getName() + " dit: je quitte le vestiaire.");
 	}
@@ -53,7 +51,7 @@ public class Client extends Thread {
 	 * Action d'aller dans et de sortir du bassin
 	 */
 	public void allerBassin() {
-		this.piscine.getBassin().entrerBassin(this);
+		this.piscine.getBassin().entrerBassin();
 		
 		System.out.println("Client " + this.getName() + " dit: je vais dans le bassin.");
 		
@@ -63,7 +61,7 @@ public class Client extends Thread {
         	e.printStackTrace();
         }
         
-        this.piscine.getBassin().quitterBassin(this);
+        this.piscine.getBassin().quitterBassin();
         
 		System.out.println("Client " + this.getName() + " dit: je quitte le bassin.");
 	}

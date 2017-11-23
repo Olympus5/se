@@ -1,7 +1,5 @@
 package tp3;
 
-import java.util.*;
-
 /**
  * Comptoir object
  * @author Erwan IQUEL, Mathieu LE CLEC'H
@@ -24,7 +22,7 @@ public class Comptoir {
      * achat d'un ticket
      * @param le client qui achète un ticket
      */
-    public synchronized void acheterTicket(Client client) {
+    public synchronized void acheterTicket() {
     	if(this.vendTicket) {
     		try {
 				wait();

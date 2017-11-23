@@ -1,7 +1,5 @@
 package tp3;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * Bassin object
  * @author Erwan IQUEL, Mathieu LE CLEC'H
@@ -13,32 +11,60 @@ public class Bassin {
      * Default constructor
      */
     public Bassin() {
-    	this.sem = new Semaphore(50);
+    	this.nbClient = 0;
     }
 
     /**
-     * Semaphore qui permet de verrouiller le bassin
-     * quand le nombre de client >= capacité du bassin 
+     * Nombre maximum de client autorisé dans le vestiaire
      */
-    private Semaphore sem;
+    public static final int MAX_CLIENT = 50;
+    
+    /**
+     * Nombre de client présent dans le vestiaire
+     */
+    private static int nbClient = 0;
     
     /**
      * Accéder au bassin
      * @param client le clien qui accède dans le bassin
      */
-    public void entrerBassin(Client client) {
-    	try {
-			this.sem.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    public synchronized void entrerBassin() {
+    	while(this.nbClient >= MAX_CLIENT) {
+    		try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+    	}
+    	
+    	this.nbClient++;
     }
     
     /**
      * Sortir du bassin
      * @param client Le client qui sort du bassin 
      */
-    public void quitterBassin(Client client) {
-    	this.sem.release();
+    public synchronized void quitterBassin() {
+    	this.nbClient--;
+    	notify();// Pour consommer moins de ressources
     }
+    
+    
+    
+    /**
+     * Setter
+     * @param vendTicket Le nombre de client
+     */
+    public void setNbClient(int nbClient) {
+    	this.nbClient = nbClient;
+    }
+    
+    /**
+     * Getter
+     * @return Le nombre de client
+     */
+    public int getNbClient() {
+    	return this.nbClient;
+    }
+    	
 }
