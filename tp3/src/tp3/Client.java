@@ -6,7 +6,6 @@ package tp3;
  * @version 1.0
  */
 public class Client extends Thread {
-
 	/**
 	 * Default constructor
 	 */
@@ -18,52 +17,31 @@ public class Client extends Thread {
 	 * La piscine
 	 */
 	private Piscine piscine;
-
+	
+	/**
+	 * deboguage
+	 */
+	private static int nbClient = 100;
+	
 	/**
 	 * Action d'acheter un ticket
 	 */
 	public void acheterTicket() {
-		this.piscine.getComptoir().acheterTicket();
-		
-		System.out.println("Client " + this.getName() + " dit: j'achète un ticket.");
+		this.piscine.allerComptoir(this);
 	}
 
 	/**
 	 * Action d'aller dans et de sortir des vestiaires
 	 */
 	public void allerVestiaire() {
-		this.piscine.getVestiaire().entrerVestiaire();
-		
-		System.out.println("Client " + this.getName() + " dit: je vais dans le vestiaire.");
-		
-		try {
-			sleep(1000);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		this.piscine.getVestiaire().quitterVestiaire();
-		
-		System.out.println("Client " + this.getName() + " dit: je quitte le vestiaire.");
+		this.piscine.allerVestiaire(this);
 	}
 
 	/**
 	 * Action d'aller dans et de sortir du bassin
 	 */
 	public void allerBassin() {
-		this.piscine.getBassin().entrerBassin();
-		
-		System.out.println("Client " + this.getName() + " dit: je vais dans le bassin.");
-		
-        try {
-        	sleep((int) (Math.random() * 10000));
-        } catch(Exception e) {
-        	e.printStackTrace();
-        }
-        
-        this.piscine.getBassin().quitterBassin();
-        
-		System.out.println("Client " + this.getName() + " dit: je quitte le bassin.");
+		this.piscine.allerBassin(this);
 	}
 
 	@Override
@@ -72,6 +50,7 @@ public class Client extends Thread {
 		this.allerVestiaire();
 		this.allerBassin();
 		this.allerVestiaire();
+		System.out.println("Je quitte la piscine. Il reste: " + --this.nbClient + " clients.");
 	}
 
 }
