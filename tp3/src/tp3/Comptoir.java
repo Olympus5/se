@@ -11,14 +11,8 @@ public class Comptoir {
      * Default constructor
      */
     public Comptoir() {
-    	this.vendTicket = false;
     	this.caissierLibre = 0;
     }
-
-    /**
-     * Etat de la vente
-     */
-    private boolean vendTicket;
     
     /**
      * Nombre de caissire libre
@@ -47,28 +41,12 @@ public class Comptoir {
      */
     public synchronized void vendreTicket(Caissier c) {
     	System.out.println("Coucou");
-    	if(this.caissierLibre >= 2) {
+    	while(this.caissierLibre >= 2) {
     		try {wait();} catch (InterruptedException e) {e.printStackTrace();}
     	}
     	
     	this.caissierLibre++;
     	notifyAll();
-    }
-    
-    /**
-     * Setter
-     * @param vendTicket l'état de la vente
-     */
-    public void setTicket(boolean vendTicket) {
-    	this.vendTicket = vendTicket;
-    }
-    
-    /**
-     * Getter
-     * @return l'état de la vente
-     */
-    public boolean getTicket() {
-    	return this.vendTicket;
     }
     
     /**

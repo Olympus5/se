@@ -18,7 +18,8 @@ public class Main {
 		Comptoir comptoir = new Comptoir();
 		Vestiaire vestiaire = new Vestiaire();
 		Bassin bassin = new Bassin();
-		Piscine p = new Piscine(comptoir, vestiaire, bassin);
+		StandePalme sp = new StandePalme();
+		Piscine p = new Piscine(comptoir, vestiaire, bassin, sp);
 		
 		for(int i = 0; i < 100; i++) {
 			cl.add(new Client(p));
