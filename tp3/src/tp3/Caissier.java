@@ -28,10 +28,10 @@ public class Caissier extends Thread {
 	 * @param c
 	 * @param nbClient
 	 */
-	public Caissier(Comptoir c, int id) {
+	public Caissier(Comptoir c, int nbClient, int id) {
 		this.comptoir = c;
-		this.nbClient = (nbClient + 1) / 2;
-		this.id = id;;
+		this.id = id;
+		this.setDaemon(true);
 	}
 	
 	/**
@@ -45,6 +45,7 @@ public class Caissier extends Thread {
 	public void run() {
 		while(true) {
 			System.out.println("Caissier n°" + this.id + ": Je peux vendre un ticket !");
+			System.out.println(this.isDaemon());
 			this.vendreTicket();
 		}
 	}

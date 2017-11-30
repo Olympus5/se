@@ -25,7 +25,7 @@ public class Main {
 		}
 		
 		for(int i = 0; i < 2; i ++) {
-			ca.add(new Caissier(comptoir, i));
+			ca.add(new Caissier(comptoir, 100, i));
 		}
 		
 		for(int i = 0; i < 100; i++) {
@@ -33,21 +33,13 @@ public class Main {
 		}
 		
 
-		/*for(int i = 0; i < 2; i++) {
+		for(int i = 0; i < 2; i++) {
 			ca.get(i).start();	
-		}*/
+		}
 		
 		for(int i = 0; i < 100; i++) {
 			try {
 				cl.get(i).join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		for(int i = 0; i < 2; i++) {
-			try {
-				ca.get(i).join();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

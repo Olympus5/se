@@ -50,7 +50,7 @@ public class Client extends Thread {
 		this.allerVestiaire();
 		this.allerBassin();
 		this.allerVestiaire();
-		System.out.println("Je quitte la piscine. Il reste: " + --this.nbClient + " clients.");
+		System.out.println("Client " + this.getName() + " dit:Je quitte la piscine. Il reste: " + --this.nbClient + " clients. " + this.activeCount());
 	}
 
 }

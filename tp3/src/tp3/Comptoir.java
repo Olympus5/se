@@ -1,7 +1,5 @@
 package tp3;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * Comptoir object
  * @author Erwan IQUEL, Mathieu LE CLEC'H
@@ -15,7 +13,6 @@ public class Comptoir {
     public Comptoir() {
     	this.vendTicket = false;
     	this.caissierLibre = 0;
-    	this.sem = new Semaphore(2);
     }
 
     /**
@@ -28,8 +25,6 @@ public class Comptoir {
      */
     private int caissierLibre;
 
-    private Semaphore sem;
-    
     /**
      * Nombre de client dans le comptoir
      */
@@ -38,21 +33,13 @@ public class Comptoir {
     /**
      * achat d'un ticket
      */
-    public void acheterTicket(Client c) {//acheterTicket à juste besoin d'un simple verrou: 1 personne par guichet
-    	try {
-			sem.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    public synchronized void acheterTicket(Client c) {//acheterTicket à juste besoin d'un simple verrou: 1 personne par guichet
+    	if(this.caissierLibre <= 0) {
+    		try {wait();} catch (InterruptedException e) {e.printStackTrace();}
+    	}
     	
-    	try {
-			Thread.sleep((int)(Math.random() * 1000));
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	sem.release();
+    	this.caissierLibre--;
+    	notifyAll();
     }
     
     /**

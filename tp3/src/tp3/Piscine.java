@@ -45,7 +45,7 @@ public class Piscine {
     public void allerVestiaire(Client client) {
     	this.vestiaire.entrerVestiaire();
 		
-		System.out.println("Client " + client.getName() + " dit: je vais dans le vestiaire.");
+		//System.out.println("Client " + client.getName() + " dit: je vais dans le vestiaire.");
 		
 		try {
 			client.sleep(1000);
@@ -55,7 +55,7 @@ public class Piscine {
 		
 		this.vestiaire.quitterVestiaire();
 		
-		System.out.println("Client " + client.getName() + " dit: je quitte le vestiaire.");
+		//System.out.println("Client " + client.getName() + " dit: je quitte le vestiaire.");
     }
 
     /**
@@ -65,7 +65,7 @@ public class Piscine {
     public void allerBassin(Client client) {
     	this.bassin.entrerBassin();
 		
-		System.out.println("Client " + client.getName() + " dit: je vais dans le bassin.");
+		//System.out.println("Client " + client.getName() + " dit: je vais dans le bassin.");
 		
         try {
         	client.sleep((int) (Math.random() * 10000));
@@ -75,6 +75,6 @@ public class Piscine {
         
         this.bassin.quitterBassin();
         
-		System.out.println("Client " + client.getName() + " dit: je quitte le bassin.");
+		//System.out.println("Client " + client.getName() + " dit: je quitte le bassin.");
     }
 }
